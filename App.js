@@ -1,42 +1,43 @@
 import { StatusBar } from "expo-status-bar"
-import React from "react"
-import { StyleSheet, Text, View, Image, SafeAreaView } from "react-native"
+import React, { useState } from "react"
+import { StyleSheet, TextInput, View, Text, Button } from "react-native"
+
+//HOOKS EXAMPLE
+// const [text, setText] = useState("jeya")
+{
+  /* <Button title='change text' onPress={() => setText("im changed")}>
+        change text
+      </Button> */
+}
 
 export default function App() {
   return (
-    <SafeAreaView style={styles.container}>
-      <Text numberOfLine={1} onPress={() => console.log("texrt")}>
-        why my pic no show?
-      </Text>
-      <ImageDisplay />
-      <StatusBar style='auto' />
-    </SafeAreaView>
+    <View style={styles.container}>
+      <View style={styles.inlineView}>
+        <TextInput placeholder='Course Goal' style={styles.addInput} />
+        <Button title='ADD' />
+      </View>
+      <View></View>
+    </View>
   )
 }
 
-const ImageDisplay = () => {
-  return (
-    <SafeAreaView style={styles.imageContainer}>
-      <Image
-        style={styles.cigaretteContainer}
-        source={require("./components/images/ironic-cigarette.jpg")}
-      />
-    </SafeAreaView>
-  )
+{
+  /*STYLES */
 }
 const styles = StyleSheet.create({
   container: {
-    flex: 0.5,
-    backgroundColor: "dodgerblue",
-    alignItems: "center",
-    justifyContent: "center",
+    padding: 30,
   },
-  cigaretteContainer: {
-    width: 1,
-    height: 1,
-  },
-  imageContainer: {
-    flex: 0.5,
+  inlineView: {
+    flexDirection: "row",
+    justifyContent: "space-between",
     alignItems: "center",
+  },
+  addInput: {
+    borderBottomColor: "black",
+    borderBottomWidth: 3,
+    padding: 10,
+    width: "80%",
   },
 })
