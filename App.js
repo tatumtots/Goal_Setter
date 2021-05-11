@@ -9,6 +9,8 @@ import {
   ScrollView,
   FlatList,
 } from "react-native"
+import GoalItem from "./components/GoalItem"
+import GoalInput from "./components/GoalInput"
 
 //HOOKS EXAMPLE
 // const [text, setText] = useState("jeya")
@@ -19,39 +21,23 @@ import {
 }
 
 export default function App() {
-  const [enteredGoal, setEnteredGoal] = useState("")
   const [courseGoals, setCourseGoals] = useState([])
 
-  const goalInputHandler = (enteredText) => {
-    setEnteredGoal(enteredText)
-  }
-
-  const addGoal = () => {
+  const addGoal = (goal) => {
     setCourseGoals((currentGoals) => [
       ...currentGoals,
-      { id: Math.random().toString(), value: enteredGoal },
+      { id: Math.random().toString(), value: goal },
     ])
   }
 
   return (
     <View style={styles.container}>
-      <View style={styles.inlineView}>
-        <TextInput
-          placeholder='Course Goal'
-          style={styles.addInput}
-          value={enteredGoal}
-          onChangeText={goalInputHandler}
-        />
-        <Button title='ADD' onPress={addGoal} />
-      </View>
+      <GoalInput onAddGoal={addGoal} />
+      {/*FLATLIST-- (item, index) parameters are built in, also 'item' and 'value'. Hit ctrl + space for options */}
       <FlatList
         keyExtractor={(item, index) => item.id}
         data={courseGoals}
-        renderItem={(itemData) => (
-          <View style={styles.listItem} key={itemData.item.key}>
-            <Text>{itemData.item.value}</Text>
-          </View>
-        )}
+        renderItem={(itemData) => <GoalItem title={itemData.item.value} />}
       ></FlatList>
     </View>
   )
@@ -74,11 +60,5 @@ const styles = StyleSheet.create({
     borderBottomWidth: 3,
     padding: 10,
     width: "80%",
-  },
-  listItem: {
-    padding: 10,
-    margin: 10,
-    backgroundColor: "#ccc",
-    borderWidth: 1,
   },
 })
